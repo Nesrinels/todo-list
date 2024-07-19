@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <section class="container">
+        <div class="heading">
+          <img class="headingimg" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/756881/laptop.svg">
+          <h1 class="headingtitle">To-Do List</h1>
+        </div>
+        <form class="form">
+          <div>
+            <label class="formlabel" >~ Today I need to ~</label>
+            <input class="forminput" type="text" id="newtask" name="to-do" size="30" required>
+            <button class="button" id="btn"><span>Submit</span></button>
+          </div>
+        </form>
+        <div>
+          <ul class="toDoList" id="todo">
+          </ul>
+        </div>
+      </section>
+
+
+    <script>
+        // let ToDoList = [];
+        // const form = document.querySelector('.form');
+        // const input = document.querySelector('.forminput');
+        // const toDoList = document.querySelector('.toDoList');
+    //    function tasklist(){
+    //     let taskinput = document.getElementById("todo");
+    //     let tasktext = taskinput.trim()
+    //     let submit = document.getElementById('btn');
+    //     submit.addEventListener('click', () =>{
+    //         if (tasktext !== '') {
+    //         let taskList = document.getElementById('toDoList');
+    //         let newTask = document.createElement('li');
+    //         newTask.textContent = tasktext
+    //         taskList.appendChild(newTask);
+    //         taskUnput.value = '';
+    //     }
+    //    }
+    //     });
+
+// Select the form, input, and the ul for the list
+const form = document.querySelector('.form');
+const input = document.querySelector('.forminput');
+const toDoList = document.querySelector('.toDoList');
+
+// Event listener for the form submission
+form.addEventListener('submit', function(event) {
+    event.preventDefault(); // Prevent form submission
+    const toDoText = input.value.trim(); // Get the input value and trim whitespace
+    if (toDoText) {
+        addToDoItem(toDoText); // Add the to-do item
+        input.value = ''; // Clear the input field
+    }
+});
+
+// Function to add a to-do item to the list
+function addToDoItem(text) {
+    const li = document.createElement('li');
+    li.textContent = text;
+
+    // Add a delete button to each to-do item
+    const deleteBtn = document.createElement('button');
+    deleteBtn.textContent = 'Delete';
+    deleteBtn.className = 'delete-button';
+    li.appendChild(deleteBtn);
+
+    // Append the new to-do item to the list
+    toDoList.appendChild(li);
+
+    // Add event listener to delete the item when the button is clicked
+    deleteBtn.addEventListener('click', function() {
+        toDoList.removeChild(li);
+    });
+
+    // Optional: Add a click event to mark the item as completed
+    li.addEventListener('click', function() {
+        li.classList.toggle('completed');
+    });
+}
+        
+   
+
+
+
+
+const style = document.createElement('style');
+style.innerHTML = `
+    .completed {
+        text-decoration: line-through;
+        color: gray;
+    }
+    .delete-button {
+        margin-left: 10px;
+        background-color: #ff4d4d;
+        border: none;
+        color: white;
+        padding: 2px 6px;
+        cursor: pointer;
+        border-radius: 3px;
+    }
+    .delete-button:hover {
+        background-color: #ff1a1a;
+    }
+`;
+document.head.appendChild(style);
+    </script>
+</body>
+</html>
